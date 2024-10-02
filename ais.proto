@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+message ShipInfoRequest {
+    int64 shipId = 1;
+}
+
+message Point {
+    double lat = 1;
+    double lon = 2;
+}
+
+message Location {
+    Point point = 1;
+    double heading = 2;
+    int64 timeStamp = 3;
+}
+
+message StartStreamingRequest {
+    repeated Point points = 1;
+    int64 startTime = 2;
+    int64 endTime = 3;
+}
+
+message ShipSimple {
+    Location location = 1;
+    int64 shipId = 2;
+}
+
+message MonitoredShip {
+    int64 shipId = 1;
+    float trustworthiness = 2;
+    optional string reason = 3;
+}
+
+message StreamingResponse {
+    repeated ShipSimple ships = 1;
+    repeated MonitoredShip monitoredShips = 2;
+}
+
+message ShipInfoResponse {
+    int64 id = 1;
+    string name = 2;
+    int32 mmsi = 3;
+    string shipType = 4;
+    int32 imo = 5;
+    string callSign = 6;
+    string flag = 7;
+    float width = 8;
+    float length = 9;
+    string positionFixingDevice = 10;
+    repeated Location pathForecast = 11;
+    repeated Location pathHistory = 12;
+}
+
+service AISService {
+    rpc GetShipInfo(ShipInfoRequest) returns (ShipInfoResponse);
+    rpc StartStreaming(StartStreamingRequest) returns (stream StreamingResponse);
+}
