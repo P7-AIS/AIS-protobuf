@@ -1,4 +1,6 @@
 syntax = "proto3";
+package protobuf;
+// import "google/protobuf/empty.proto";
 
 message ShipInfoRequest {
     int64 shipId = 1;
