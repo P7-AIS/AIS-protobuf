@@ -2,10 +2,6 @@ syntax = "proto3";
 package protobuf;
 // import "google/protobuf/empty.proto";
 
-message ShipInfoRequest {
-    int64 shipId = 1;
-}
-
 message Point {
     double lat = 1;
     double lon = 2;
@@ -14,16 +10,10 @@ message Point {
 message Location {
     Point point = 1;
     double heading = 2;
-    int64 timeStamp = 3;
+    int64 timestamp = 3;
 }
 
-message StartStreamingRequest {
-    repeated Point points = 1;
-    int64 startTime = 2;
-    int64 endTime = 3;
-}
-
-message ShipSimple {
+message SimpleShip {
     Location location = 1;
     int64 shipId = 2;
 }
@@ -34,9 +24,31 @@ message MonitoredShip {
     optional string reason = 3;
 }
 
+message ShipPathRequest {
+    int64 shipId = 1;
+    int64 timestamp = 2;
+}
+
+message ShipPathResponse {
+    int64 shipId = 1;
+    repeated Location pathForecast = 2;
+    repeated Location pathHistory = 3;
+}
+
+message StreamingRequest {
+    repeated Point selectedArea = 1;
+    int64 startTime = 2;
+    int32 timeSpeed = 3;
+}
+
 message StreamingResponse {
-    repeated ShipSimple ships = 1;
+    repeated SimpleShip ships = 1;
     repeated MonitoredShip monitoredShips = 2;
+}
+
+message ShipInfoRequest {
+    int64 shipId = 1;
+    int64 timestamp = 2;
 }
 
 message ShipInfoResponse {
@@ -50,11 +62,10 @@ message ShipInfoResponse {
     float width = 8;
     float length = 9;
     string positionFixingDevice = 10;
-    repeated Location pathForecast = 11;
-    repeated Location pathHistory = 12;
 }
 
 service AISService {
     rpc GetShipInfo(ShipInfoRequest) returns (ShipInfoResponse);
-    rpc StartStreaming(StartStreamingRequest) returns (stream StreamingResponse);
+    rpc GetShipPath(ShipPathRequest) returns (ShipPathResponse);
+    rpc StartStreaming(stream StreamingRequest) returns (stream StreamingResponse);
 }
