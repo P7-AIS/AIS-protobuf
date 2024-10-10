@@ -13,24 +13,24 @@ message Location {
     int64 timestamp = 3;
 }
 
-message SimpleShip {
+message SimpleVessel {
     Location location = 1;
-    int64 shipId = 2;
+    int64 vesselId = 2;
 }
 
-message MonitoredShip {
-    int64 shipId = 1;
+message MonitoredVessel {
+    int64 vesselId = 1;
     float trustworthiness = 2;
     optional string reason = 3;
 }
 
-message ShipPathRequest {
-    int64 shipId = 1;
+message VesselPathRequest {
+    int64 vesselId = 1;
     int64 timestamp = 2;
 }
 
-message ShipPathResponse {
-    int64 shipId = 1;
+message VesselPathResponse {
+    int64 vesselId = 1;
     repeated Location pathForecast = 2;
     repeated Location pathHistory = 3;
 }
@@ -42,30 +42,30 @@ message StreamingRequest {
 }
 
 message StreamingResponse {
-    repeated SimpleShip ships = 1;
-    repeated MonitoredShip monitoredShips = 2;
+    repeated SimpleVessel vessels = 1;
+    repeated MonitoredVessel monitoredVessels = 2;
 }
 
-message ShipInfoRequest {
-    int64 shipId = 1;
+message VesselInfoRequest {
+    int64 vesselId = 1;
     int64 timestamp = 2;
 }
 
-message ShipInfoResponse {
-    int64 id = 1;
+message VesselInfoResponse {
+    int64 vesselId = 1;
     string name = 2;
     int32 mmsi = 3;
-    string shipType = 4;
-    int32 imo = 5;
-    string callSign = 6;
-    string flag = 7;
-    float width = 8;
-    float length = 9;
-    string positionFixingDevice = 10;
+    optional string shipType = 4;
+    optional int32 imo = 5;
+    optional string callSign = 6;
+    optional string flag = 7;
+    optional float width = 8;
+    optional float length = 9;
+    optional string positionFixingDevice = 10;
 }
 
 service AISService {
-    rpc GetShipInfo(ShipInfoRequest) returns (ShipInfoResponse);
-    rpc GetShipPath(ShipPathRequest) returns (ShipPathResponse);
+    rpc GetVesselInfo(VesselInfoRequest) returns (VesselInfoResponse);
+    rpc GetVesselPath(VesselPathRequest) returns (VesselPathResponse);
     rpc StartStreaming(stream StreamingRequest) returns (stream StreamingResponse);
 }
