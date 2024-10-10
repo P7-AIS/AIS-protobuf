@@ -14,23 +14,23 @@ message Location {
 }
 
 message SimpleVessel {
-    Location location = 1;
-    int64 vesselId = 2;
+    int64 mmsi = 1;
+    Location location = 2;
 }
 
 message MonitoredVessel {
-    int64 vesselId = 1;
+    int64 mmsi = 1;
     float trustworthiness = 2;
     optional string reason = 3;
 }
 
 message VesselPathRequest {
-    int64 vesselId = 1;
+    int64 mmsi = 1;
     int64 timestamp = 2;
 }
 
 message VesselPathResponse {
-    int64 vesselId = 1;
+    int64 mmsi = 1;
     repeated Location pathForecast = 2;
     repeated Location pathHistory = 3;
 }
@@ -47,21 +47,20 @@ message StreamingResponse {
 }
 
 message VesselInfoRequest {
-    int64 vesselId = 1;
+    int64 mmsi = 1;
     int64 timestamp = 2;
 }
 
 message VesselInfoResponse {
-    int64 vesselId = 1;
+    int32 mmsi = 1;
     string name = 2;
-    int32 mmsi = 3;
-    optional string shipType = 4;
-    optional int32 imo = 5;
-    optional string callSign = 6;
-    optional string flag = 7;
-    optional float width = 8;
-    optional float length = 9;
-    optional string positionFixingDevice = 10;
+    optional string shipType = 3;
+    optional int32 imo = 4;
+    optional string callSign = 5;
+    optional string flag = 6;
+    optional float width = 7;
+    optional float length = 8;
+    optional string positionFixingDevice = 9;
 }
 
 service AISService {
