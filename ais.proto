@@ -9,7 +9,7 @@ message Point {
 
 message Location {
     Point point = 1;
-    double heading = 2;
+    optional double heading = 2;
     int64 timestamp = 3;
 }
 
