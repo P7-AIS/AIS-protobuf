@@ -66,5 +66,5 @@ message VesselInfoResponse {
 service AISService {
     rpc GetVesselInfo(VesselInfoRequest) returns (VesselInfoResponse);
     rpc GetVesselPath(VesselPathRequest) returns (VesselPathResponse);
-    rpc StartStreaming(stream StreamingRequest) returns (stream StreamingResponse);
+    rpc StartStreaming(StreamingRequest) returns (stream StreamingResponse);
 }
