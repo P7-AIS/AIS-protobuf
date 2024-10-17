@@ -7,12 +7,6 @@ message Point {
     double lon = 2;
 }
 
-message Location {
-    Point point = 1;
-    optional double heading = 2;
-    int64 timestamp = 3;
-}
-
 message SimpleVessel {
     int64 mmsi = 1;
     bytes bin_location = 2;
