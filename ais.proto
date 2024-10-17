@@ -15,7 +15,16 @@ message Location {
 
 message SimpleVessel {
     int64 mmsi = 1;
-    Location location = 2;
+    bytes bin_location = 2;
+}
+
+message VesselPath {
+    message Heading {
+        optional float heading = 1;
+    }
+
+    bytes bin_path = 1;
+    repeated Heading headings = 2;
 }
 
 message MonitoredVessel {
@@ -31,8 +40,8 @@ message VesselPathRequest {
 
 message VesselPathResponse {
     int64 mmsi = 1;
-    repeated Location pathForecast = 2;
-    repeated Location pathHistory = 3;
+    VesselPath pathForecast = 2;
+    VesselPath pathHistory = 3;
 }
 
 message StreamingRequest {
@@ -53,11 +62,10 @@ message VesselInfoRequest {
 
 message VesselInfoResponse {
     int32 mmsi = 1;
-    string name = 2;
+    optional string name = 2;
     optional string shipType = 3;
     optional int32 imo = 4;
     optional string callSign = 5;
-    optional string flag = 6;
     optional float width = 7;
     optional float length = 8;
     optional string positionFixingDevice = 9;
