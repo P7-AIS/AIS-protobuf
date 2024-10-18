@@ -9,7 +9,8 @@ message Point {
 
 message SimpleVessel {
     int64 mmsi = 1;
-    bytes bin_location = 2;
+    optional float Heading = 2;
+    bytes bin_location = 3;
 }
 
 message VesselPath {
