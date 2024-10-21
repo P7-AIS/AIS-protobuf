@@ -3,23 +3,23 @@ package protobuf;
 // import "google/protobuf/empty.proto";
 
 message Point {
-    double lat = 1;
-    double lon = 2;
+    double lon = 1;
+    double lat = 2;
+}
+
+message Location {
+    Point point = 1;
+    optional float heading = 2;
+    int64 timestamp = 3;
 }
 
 message SimpleVessel {
     int64 mmsi = 1;
-    optional float heading = 2;
-    bytes bin_location = 3;
+    Location location = 2;
 }
 
 message VesselPath {
-    message Heading {
-        optional float heading = 1;
-    }
-
-    bytes bin_path = 1;
-    repeated Heading headings = 2;
+    repeated Location locations = 1;
 }
 
 message MonitoredVessel {
