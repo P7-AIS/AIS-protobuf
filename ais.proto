@@ -67,8 +67,27 @@ message VesselInfoResponse {
     optional string positionFixingDevice = 9;
 }
 
+message SimpleVesselsRequest {
+    int64 timestamp = 1;
+}
+
+message SimpleVesselsResponse {
+    repeated SimpleVessel vessels = 1;
+}
+
+message MonitoredVesselsRequest {
+    repeated Point selectedArea = 1;
+    int64 timestamp = 2;
+}
+
+message MonitoredVesselsResponse{
+    repeated MonitoredVessel vessels = 2;
+}
+
 service AISService {
     rpc GetVesselInfo(VesselInfoRequest) returns (VesselInfoResponse);
     rpc GetVesselPath(VesselPathRequest) returns (VesselPathResponse);
+    rpc GetSimpleVessels(SimpleVesselsRequest) returns (SimpleVesselsResponse);
+    rpc GetMonitoredVessels(MonitoredVesselsRequest) returns (MonitoredVesselsResponse);
     rpc StartStreaming(StreamingRequest) returns (stream StreamingResponse);
 }
